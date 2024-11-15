@@ -1,35 +1,72 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React from 'react'
+import { Github, Linkedin, Twitter, Monitor, Coffee, TreesIcon as Plant } from 'lucide-react'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const Navbar = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <nav className="navbar">
+      <div className="nav-links">
+        <button>Home</button>
+        <button>About</button>
+        <button>Projects</button>
+        <button>Contact</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </nav>
   )
 }
 
-export default App
+const SocialLinks = ({ links }) => {
+  return (
+    <div className="social-links">
+      {links.map((link, index) => (
+        <a
+          key={index}
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="social-link"
+          style={{ color: link.color }}
+        >
+          {link.icon}
+        </a>
+      ))}
+    </div>
+  )
+}
+
+const Hero = ({ socialLinks }) => {
+  return (
+    <div className="hero">
+      <div className="hero-content">
+        <h1>Victor Mancho</h1>
+        <p>A Web Developer</p>
+        <SocialLinks links={socialLinks} />
+      </div>
+      
+      <div className="hero-image">
+        <div className="illustration">
+          <Monitor className="monitor" />
+          <Coffee className="coffee" />
+          <Plant className="plant" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function App() {
+  const socialLinks = [
+    { icon: <Github size={24} />, url: 'https://github.com', color: '#333' },
+    { icon: <Linkedin size={24} />, url: 'https://linkedin.com', color: '#0077B5' },
+    { icon: <Twitter size={24} />, url: 'https://twitter.com', color: '#1DA1F2' }
+  ]
+
+  return (
+    <div className="app">
+      <div className="container">
+        <Navbar />
+        <Hero socialLinks={socialLinks} />
+      </div>
+    </div>
+  )
+}
